@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Lengkap Setup Sherina Mart di Windows</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #7f8c8d;
+            margin-top: 20px;
+        }
+        .success {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .danger {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .info {
+            background-color: #d1ecf1;
+            border-left: 5px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+        pre {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        pre code {
+            background-color: transparent;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #3498db;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .step {
+            background-color: #e8f4f8;
+            border-left: 5px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .step-number {
+            background-color: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .checkmark {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .crossmark {
+            color: #dc3545;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Panduan Lengkap Setup Sherina Mart di Windows</h1>
+        
+        <div class="info">
+            <strong>Dokumen ini berisi:</strong> Semua langkah yang telah dilakukan untuk menjalankan proyek Sherina Mart (aplikasi CLI berbasis Laravel Zero) dari Linux ke Windows.
+        </div>
+
+        <h2>🎯 Tujuan Proyek</h2>
+        <p>Menjalankan aplikasi <strong>Sherina Mart</strong> (sistem manajemen toko berbasis command line) yang sebelumnya berjalan di Linux agar dapat berfungsi di Windows.</p>
+
+        <h2>📋 Informasi Proyek</h2>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Detail</th>
+            </tr>
+            <tr>
+                <td>Nama Proyek</td>
+                <td>Sherina Mart</td>
+            </tr>
+            <tr>
+                <td>Framework</td>
+                <td>Laravel Zero v12.0.2</td>
+            </tr>
+            <tr>
+                <td>Bahasa</td>
+                <td>PHP 8.2+</td>
+            </tr>
+            <tr>
+                <td>Database</td>
+                <td>SQLite</td>
+            </tr>
+            <tr>
+                <td>Lokasi Proyek</td>
+                <td>d:\project\sherina-mart-main\sherina-mart-main</td>
+            </tr>
+        </table>
+
+        <h2>🔧 Langkah-Langkah Setup yang Telah Dilakukan</h2>
+
+        <div class="step">
+            <h3><span class="step-number">1</span>Analisis Proyek</h3>
+            <p>Mengidentifikasi bahwa proyek ini adalah aplikasi CLI berbasis Laravel Zero dengan database SQLite.</p>
+            <ul>
+                <li>Framework: Laravel Zero v12.0.2</li>
+                <li>Memerlukan PHP 8.2 atau lebih tinggi</li>
+                <li>Menggunakan Composer untuk dependency management</li>
+                <li>Database: SQLite (file-based, tidak perlu server database)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">2</span>Menemukan PHP dari Laragon</h3>
+            <p>Ditemukan bahwa sistem Anda sudah memiliki Laragon terinstall dengan PHP di dalamnya.</p>
+            <ul>
+                <li><span class="checkmark">✓</span> PHP 8.3.26 ditemukan di: <code>C:\laragon\bin\php\php-8.3.26-Win32-vs16-x64</code></li>
+                <li><span class="checkmark">✓</span> Versi PHP memenuhi requirement (minimal 8.2)</li>
+                <li><span class="checkmark">✓</span> Composer 2.8.12 sudah terinstall</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">3</span>Menambahkan PHP ke PATH Windows</h3>
+            <p>Agar PHP bisa diakses dari PowerShell, ditambahkan ke environment variable PATH.</p>
+            <pre><code>$phpPath = "C:\laragon\bin\php\php-8.3.26-Win32-vs16-x64"
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$phpPath", "User")</code></pre>
+            <div class="success">
+                <strong>Hasil:</strong> PHP berhasil ditambahkan ke PATH dan dapat diakses dari terminal.
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">4</span>Mengaktifkan Ekstensi ZIP di PHP</h3>
+            <p>Ekstensi ZIP diperlukan agar Composer bisa extract packages.</p>
+            <ul>
+                <li>File konfigurasi: <code>C:\laragon\bin\php\php-8.3.26-Win32-vs16-x64\php.ini</code></li>
+                <li>Mengubah <code>;extension=zip</code> menjadi <code>extension=zip</code></li>
+            </ul>
+            <div class="success">
+                <strong>Hasil:</strong> Ekstensi ZIP berhasil diaktifkan.
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">5</span>Install Dependencies dengan Composer</h3>
+            <p>Menginstall semua package PHP yang diperlukan oleh aplikasi.</p>
+            <pre><code>composer install --no-interaction --ignore-platform-req=ext-posix</code></pre>
+            
+            <div class="warning">
+                <strong>Catatan Penting:</strong> Flag <code>--ignore-platform-req=ext-posix</code> diperlukan karena:
+                <ul>
+                    <li>Ekstensi <code>posix</code> hanya tersedia di Linux/Unix</li>
+                    <li>Package <code>php-school/cli-menu</code> memerlukan ekstensi ini</li>
+                    <li>Aplikasi tetap berfungsi di Windows tanpa ekstensi ini (untuk perintah non-interaktif)</li>
+                </ul>
+            </div>
+            
+            <div class="success">
+                <strong>Hasil:</strong> 113 packages berhasil terinstall.
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">6</span>Setup Database SQLite</h3>
+            <p>Membuat file database SQLite dan menjalankan migrasi untuk membuat tabel-tabel.</p>
+            
+            <h4>Membuat File Database:</h4>
+            <pre><code>New-Item -ItemType File -Path "database\database.sqlite" -Force</code></pre>
+            
+            <h4>Menjalankan Migrasi:</h4>
+            <pre><code>php sherina-mart migrate --force</code></pre>
+            
+            <div class="success">
+                <strong>Hasil Migrasi:</strong>
+                <ul>
+                    <li><span class="checkmark">✓</span> <code>categories</code> - Tabel kategori produk (6.92ms)</li>
+                    <li><span class="checkmark">✓</span> <code>varieties</code> - Tabel variasi produk (4.88ms)</li>
+                    <li><span class="checkmark">✓</span> <code>products</code> - Tabel data produk (5.12ms)</li>
+                    <li><span class="checkmark">✓</span> <code>sale_transactions</code> - Tabel transaksi penjualan (4.55ms)</li>
+                </ul>
+                <strong>Ukuran Database:</strong> 45,056 bytes (45 KB)
+            </div>
+        </div>
+
+        <div class="step">
+            <h3><span class="step-number">7</span>Verifikasi Instalasi</h3>
+            <p>Memastikan semua komponen berfungsi dengan baik.</p>
+            
+            <h4>Verifikasi PHP:</h4>
+            <pre><code>php -v
+# Output: PHP 8.3.26 (cli) (built: Sep 23 2025 18:38:53)</code></pre>
+            
+            <h4>Verifikasi Composer:</h4>
+            <pre><code>composer --version
+# Output: Composer version 2.8.12</code></pre>
+            
+            <h4>Verifikasi Ekstensi SQLite:</h4>
+            <pre><code>php -m | Select-String -Pattern "sqlite"
+# Output: pdo_sqlite, sqlite3</code></pre>
+            
+            <h4>Verifikasi Aplikasi:</h4>
+            <pre><code>php sherina-mart list
+# Output: Menampilkan semua perintah yang tersedia</code></pre>
+        </div>
+
+        <h2>✅ Status Akhir Setup</h2>
+        <table>
+            <tr>
+                <th>Komponen</th>
+                <th>Status</th>
+                <th>Detail</th>
+            </tr>
+            <tr>
+                <td>PHP</td>
+                <td><span class="checkmark">✓ Berhasil</span></td>
+                <td>PHP 8.3.26 dari Laragon</td>
+            </tr>
+            <tr>
+                <td>Composer</td>
+                <td><span class="checkmark">✓ Berhasil</span></td>
+                <td>Composer 2.8.12</td>
+            </tr>
+            <tr>
+                <td>Dependencies</td>
+                <td><span class="checkmark">✓ Berhasil</span></td>
+                <td>113 packages terinstall</td>
+            </tr>
+            <tr>
+                <td>Database SQLite</td>
+                <td><span class="checkmark">✓ Berhasil</span></td>
+                <td>45 KB, 4 tabel</td>
+            </tr>
+            <tr>
+                <td>Migrasi</td>
+                <td><span class="checkmark">✓ Berhasil</span></td>
+                <td>4 tabel dibuat</td>
+            </tr>
+            <tr>
+                <td>Perintah Non-Interaktif</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+                <td>list, migrate, inspire, dll</td>
+            </tr>
+            <tr>
+                <td>Menu Interaktif</td>
+                <td><span class="crossmark">✗ Perlu WSL/Git Bash</span></td>
+                <td>Memerlukan perintah Linux</td>
+            </tr>
+        </table>
+
+        <h2>🚀 Cara Menjalankan Aplikasi</h2>
+
+        <h3>Metode 1: PowerShell (Untuk Perintah Non-Interaktif)</h3>
+        <pre><code># Refresh environment variables
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+# Navigasi ke folder proyek
+cd d:\project\sherina-mart-main\sherina-mart-main
+
+# Jalankan perintah
+php sherina-mart list           # Lihat semua perintah
+php sherina-mart migrate:status # Status migrasi
+php sherina-mart inspire        # Quote inspiratif
+php sherina-mart db:seed        # Seed database</code></pre>
+
+        <h3>Metode 2: WSL (Untuk Menu Interaktif)</h3>
+        <div class="info">
+            <strong>Direkomendasikan untuk menu interaktif</strong>
+        </div>
+        <pre><code># Install WSL (jalankan sebagai Administrator)
+wsl --install
+
+# Restart komputer
+
+# Setelah restart, install PHP di WSL
+sudo apt update
+sudo apt install php php-cli php-sqlite3 php-mbstring composer
+
+# Jalankan aplikasi
+cd /mnt/d/project/sherina-mart-main/sherina-mart-main
+php sherina-mart app:menu-command</code></pre>
+
+        <h3>Metode 3: Git Bash (Alternatif untuk Menu Interaktif)</h3>
+        <ol>
+            <li>Download Git for Windows dari: <a href="https://git-scm.com/download/win">https://git-scm.com/download/win</a></li>
+            <li>Install Git Bash</li>
+            <li>Buka Git Bash dan jalankan:
+                <pre><code>cd /d/project/sherina-mart-main/sherina-mart-main
+php sherina-mart app:menu-command</code></pre>
+            </li>
+        </ol>
+
+        <h2>⚠️ Masalah yang Ditemukan dan Solusinya</h2>
+
+        <h3>Masalah 1: PHP tidak terdeteksi</h3>
+        <div class="danger">
+            <strong>Error:</strong> <code>php : The term 'php' is not recognized</code>
+        </div>
+        <div class="success">
+            <strong>Solusi:</strong> Refresh environment variables atau restart PowerShell:
+            <pre><code>$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")</code></pre>
+        </div>
+
+        <h3>Masalah 2: Ekstensi ZIP tidak aktif</h3>
+        <div class="danger">
+            <strong>Error:</strong> <code>The zip extension and unzip/7z commands are both missing</code>
+        </div>
+        <div class="success">
+            <strong>Solusi:</strong> Aktifkan ekstensi ZIP di <code>php.ini</code> dengan mengubah <code>;extension=zip</code> menjadi <code>extension=zip</code>
+        </div>
+
+        <h3>Masalah 3: Ekstensi POSIX diperlukan</h3>
+        <div class="danger">
+            <strong>Error:</strong> <code>ext-posix * -> it is missing from your system</code>
+        </div>
+        <div class="success">
+            <strong>Solusi:</strong> Gunakan flag <code>--ignore-platform-req=ext-posix</code> saat install Composer
+        </div>
+
+        <h3>Masalah 4: Menu interaktif tidak berfungsi</h3>
+        <div class="danger">
+            <strong>Error:</strong> <code>'stty' is not recognized</code>, <code>'tput' is not recognized</code>
+        </div>
+        <div class="warning">
+            <strong>Penjelasan:</strong> Library <code>php-school/cli-menu</code> memerlukan perintah Linux (<code>stty</code>, <code>tput</code>) yang tidak tersedia di Windows PowerShell.
+        </div>
+        <div class="success">
+            <strong>Solusi:</strong>
+            <ul>
+                <li><strong>Opsi 1:</strong> Gunakan WSL (Windows Subsystem for Linux)</li>
+                <li><strong>Opsi 2:</strong> Gunakan Git Bash</li>
+                <li><strong>Opsi 3:</strong> Gunakan perintah non-interaktif saja</li>
+            </ul>
+        </div>
+
+        <h2>📝 Perintah-Perintah yang Tersedia</h2>
+
+        <h3>Perintah yang Berfungsi di PowerShell:</h3>
+        <table>
+            <tr>
+                <th>Perintah</th>
+                <th>Fungsi</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart list</code></td>
+                <td>Menampilkan semua perintah</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart migrate</code></td>
+                <td>Jalankan migrasi database</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart migrate:status</code></td>
+                <td>Status migrasi</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart db:seed</code></td>
+                <td>Seed database dengan data</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart inspire</code></td>
+                <td>Tampilkan quote inspiratif</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart test</code></td>
+                <td>Jalankan test aplikasi</td>
+                <td><span class="checkmark">✓ Berfungsi</span></td>
+            </tr>
+        </table>
+
+        <h3>Perintah yang Memerlukan WSL/Git Bash:</h3>
+        <table>
+            <tr>
+                <th>Perintah</th>
+                <th>Fungsi</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td><code>php sherina-mart app:menu-command</code></td>
+                <td>Menu interaktif utama</td>
+                <td><span class="crossmark">✗ Perlu WSL/Git Bash</span></td>
+            </tr>
+        </table>
+
+        <h2>🔍 Perbedaan Linux vs Windows</h2>
+        <table>
+            <tr>
+                <th>Aspek</th>
+                <th>Linux</th>
+                <th>Windows</th>
+            </tr>
+            <tr>
+                <td>Ekstensi POSIX</td>
+                <td>Tersedia native</td>
+                <td>Tidak tersedia (diabaikan)</td>
+            </tr>
+            <tr>
+                <td>Cara Menjalankan</td>
+                <td><code>./sherina-mart</code></td>
+                <td><code>php sherina-mart</code></td>
+            </tr>
+            <tr>
+                <td>Path Separator</td>
+                <td><code>/</code> (forward slash)</td>
+                <td><code>\</code> (backslash)</td>
+            </tr>
+            <tr>
+                <td>Ekstensi ZIP</td>
+                <td>Biasanya aktif</td>
+                <td>Perlu diaktifkan manual</td>
+            </tr>
+            <tr>
+                <td>Terminal Commands</td>
+                <td><code>stty</code>, <code>tput</code> tersedia</td>
+                <td>Tidak tersedia (perlu WSL)</td>
+            </tr>
+        </table>
+
+        <h2>📚 File Dokumentasi yang Dibuat</h2>
+        <ul>
+            <li><strong>walkthrough.md</strong> - Dokumentasi lengkap setup dan verifikasi</li>
+            <li><strong>implementation_plan.md</strong> - Rencana implementasi setup</li>
+            <li><strong>masalah_windows.md</strong> - Penjelasan masalah kompatibilitas dan solusi</li>
+            <li><strong>RINGKASAN.md</strong> - Ringkasan singkat status aplikasi</li>
+            <li><strong>panduan_instalasi_php.md</strong> - Panduan instalasi PHP dari awal</li>
+            <li><strong>langkah_cepat_instalasi.md</strong> - Panduan cepat instalasi</li>
+            <li><strong>sherina-helper.ps1</strong> - Script helper PowerShell</li>
+            <li><strong>run-sherina-mart.ps1</strong> - Script cepat menjalankan aplikasi</li>
+        </ul>
+
+        <h2>🎯 Kesimpulan</h2>
+        <div class="success">
+            <h3>Aplikasi BERHASIL dijalankan di Windows!</h3>
+            <p><strong>Yang telah dicapai:</strong></p>
+            <ul>
+                <li><span class="checkmark">✓</span> PHP 8.3.26 dari Laragon berhasil dikonfigurasi</li>
+                <li><span class="checkmark">✓</span> Composer 2.8.12 berfungsi dengan baik</li>
+                <li><span class="checkmark">✓</span> 113 packages berhasil terinstall</li>
+                <li><span class="checkmark">✓</span> Database SQLite dibuat dengan 4 tabel</li>
+                <li><span class="checkmark">✓</span> Semua perintah non-interaktif berfungsi</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <h3>Limitasi:</h3>
+            <p>Menu interaktif (<code>app:menu-command</code>) memerlukan WSL atau Git Bash karena dependency pada perintah Linux.</p>
+        </div>
+
+        <div class="info">
+            <h3>Rekomendasi:</h3>
+            <p>Untuk pengalaman terbaik dengan menu interaktif, install WSL dengan perintah:</p>
+            <pre><code>wsl --install</code></pre>
+            <p>Kemudian restart komputer dan install PHP di WSL.</p>
+        </div>
+
+        <hr style="margin: 40px 0;">
+        
+        <p style="text-align: center; color: #7f8c8d;">
+            <strong>Dokumen ini dibuat pada:</strong> 10 Desember 2025<br>
+            <strong>Proyek:</strong> Sherina Mart - Migrasi dari Linux ke Windows<br>
+            <strong>Status:</strong> Setup Berhasil ✓
+        </p>
+    </div>
+</body>
+</html>

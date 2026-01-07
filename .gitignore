@@ -1,0 +1,12 @@
+/vendor
+/.idea
+/.vscode
+/.vagrant
+.phpunit.result.cache
+/database/database.sqlite
+/receipts
+.env
+*.log
+node_modules/
+.DS_Store
+Thumbs.db
