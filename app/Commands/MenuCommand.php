@@ -51,11 +51,10 @@ class MenuCommand extends Command
             $this->line("12. Ubah Barang");
             $this->line("13. Hapus Barang");
             $this->line("14. Daftar Penjualan Barang");
-            $this->line("15. Cetak Ulang Struk Transaksi");
             $this->line("0.  Keluar");
             $this->line("========================================");
             
-            $option = $this->ask("Pilih menu (0-15)");
+            $option = $this->ask("Pilih menu (0-14)");
             
             if ($option === null || $option === '0' || $option === 0) {
                 break;
@@ -101,8 +100,14 @@ class MenuCommand extends Command
                     }
                     
                     $this->line("\n--- DAFTAR BARANG ---");
-                    $this->table(['Kode', 'Nama', 'Harga'], $products->map(function($p) {
-                        return [$p->code, $p->name, number_format($p->price, 0, ',', '.')];
+                    $this->table(['Kode', 'Nama', 'Harga', 'Stok'], $products->map(function($p) {
+                        $stockDisplay = $p->stock;
+                        if ($p->stock == 0) {
+                            $stockDisplay = "❌ HABIS";
+                        } else if ($p->stock < 10) {
+                            $stockDisplay = "⚠️ {$p->stock}";
+                        }
+                        return [$p->code, $p->name, number_format($p->price, 0, ',', '.'), $stockDisplay];
                     })->toArray());
                     
                     $this->line("\nPilihan:");
@@ -127,6 +132,13 @@ class MenuCommand extends Command
                             $transactions = [];
                             
                             foreach ($cart as $item) {
+                                // Kurangi stok
+                                $product = Product::find($item['product_id']);
+                                if ($product) {
+                                    $product->stock -= $item['quantity'];
+                                    $product->save();
+                                }
+                                
                                 $sale = new SaleTransaction;
                                 $sale->sale_id = $saleId;
                                 $sale->product_id = $item['product_id'];
@@ -172,11 +184,29 @@ class MenuCommand extends Command
                             continue;
                         }
                         
-                        $quantity = (int)$this->ask("Masukkan Jumlah Barang");
-                        
-                        if ($quantity <= 0) {
-                            $this->error("Jumlah barang harus lebih dari 0!");
+                        // Cek stok
+                        if ($choosen_product->stock <= 0) {
+                            $this->error("❌ Stok barang '{$choosen_product->name}' habis!");
+                            $this->ask("Tekan Enter untuk melanjutkan");
                             continue;
+                        }
+                        
+                        $this->info("Stok tersedia: {$choosen_product->stock}");
+                        
+                        while (true) {
+                            $quantity = (int)$this->ask("Masukkan Jumlah Barang");
+                            
+                            if ($quantity <= 0) {
+                                $this->error("Jumlah barang harus lebih dari 0!");
+                                continue;
+                            }
+                            
+                            if ($quantity > $choosen_product->stock) {
+                                $this->error("❌ Jumlah melebihi stok! Stok tersedia: {$choosen_product->stock}");
+                                continue;
+                            }
+                            
+                            break;
                         }
                         
                         // Tambahkan ke keranjang
@@ -283,12 +313,20 @@ class MenuCommand extends Command
 
             } else if ($option == 10) {
                 $this->info("Anda Memilih Pilihan : {$option} Daftar Barang");
-                $headers = ['kode', 'nama', 'harga', 'kategori', 'jenis','dibuat', 'diubah'];
+                $headers = ['kode', 'nama', 'harga', 'stok', 'kategori', 'jenis','dibuat', 'diubah'];
                 $data = Product::with(['category', 'variety'])->get()->map(function ($item) {
+                    $stockDisplay = $item->stock;
+                    if ($item->stock == 0) {
+                        $stockDisplay = "❌ HABIS";
+                    } else if ($item->stock < 10) {
+                        $stockDisplay = "⚠️ {$item->stock}";
+                    }
+                    
                     return [
                         'kode' => $item->code,
                         'nama' => $item->name,
                         'harga' => number_format($item->price, 0, ',', '.'),
+                        'stok' => $stockDisplay,
                         'kategori' => $item->category ? $item->category->name : '(Dihapus)',
                         'jenis' => $item->variety ? $item->variety->name : '(Dihapus)',
                         'dibuat' => $item->created_at->format('d-m-Y H:i'),
@@ -339,6 +377,18 @@ class MenuCommand extends Command
                 
                 $product->name = $this->ask("Masukkan Nama Barang : ");
                 $product->price = (int)$this->ask("Masukkan Harga Barang : ");
+                
+                // Input stok
+                while (true) {
+                    $stock = (int)$this->ask("Masukkan Stok Awal : ");
+                    if ($stock < 0) {
+                        $this->error("❌ Stok tidak boleh negatif!");
+                    } else {
+                        $product->stock = $stock;
+                        break;
+                    }
+                }
+                
                 if ($product->save()) {
                     $this->notify("Success", "data berhasil disimpan");
                 } else {
@@ -384,6 +434,18 @@ class MenuCommand extends Command
                     
                     $product->name = $this->ask("Masukkan Nama Barang : ", $product->name);
                     $product->price = (int)$this->ask("Masukkan Harga Barang : ", (string)$product->price);
+                    
+                    // Edit stok
+                    $this->info("Stok saat ini: {$product->stock}");
+                    while (true) {
+                        $stock = (int)$this->ask("Masukkan Stok Baru : ", (string)$product->stock);
+                        if ($stock < 0) {
+                            $this->error("❌ Stok tidak boleh negatif!");
+                        } else {
+                            $product->stock = $stock;
+                            break;
+                        }
+                    }
                     
                     if ($product->save()) {
                         $this->notify("Success", "data berhasil diubah");
@@ -434,43 +496,6 @@ class MenuCommand extends Command
                 }
                 $this->ask("Tekan Enter untuk kembali ke menu utama");
 
-            } else if ($option == 15) {
-                $this->info("\n=== CETAK ULANG STRUK TRANSAKSI ===");
-                $transactions = SaleTransaction::with('product')
-                    ->orderBy('created_at', 'desc')
-                    ->limit(20)
-                    ->get()
-                    ->filter(function ($item) {
-                        return $item->product !== null; // Filter hanya yang produknya masih ada
-                    });
-                
-                if ($transactions->isEmpty()) {
-                    $this->error("Belum ada transaksi");
-                    $this->ask("Tekan Enter untuk kembali");
-                } else {
-                    $this->table(['ID', 'Barang', 'Qty', 'Harga', 'Total', 'Tanggal'], 
-                        $transactions->map(function ($item) {
-                            return [
-                                $item->id,
-                                $item->product->name,
-                                $item->quantity,
-                                number_format($item->price, 0, ',', '.'),
-                                number_format($item->price * $item->quantity, 0, ',', '.'),
-                                $item->created_at->format('d-m-Y H:i')
-                            ];
-                        })->toArray()
-                    );
-                    
-                    $selectedId = $this->ask('Masukkan ID Transaksi');
-                    
-                    $selectedTransaction = SaleTransaction::with('product')->find($selectedId);
-                    if ($selectedTransaction && $selectedTransaction->product) {
-                        $this->printReceipt($selectedTransaction, true);
-                    } else {
-                        $this->error("Transaksi tidak ditemukan atau produk sudah dihapus");
-                        $this->ask("Tekan Enter untuk kembali");
-                    }
-                }
             }
         }
         
